@@ -6,6 +6,23 @@ import java.util.Date;
 public class Blog {
     private int id;
 
+    public Blog() {
+    }
+
+    public Blog(int id, String title, String creator, String cover, String slug, Date createTime, Date updateTime, int userId, String content, String contentType, int readingTime) {
+        this.id = id;
+        this.title = title;
+        this.creator = creator;
+        this.cover = cover;
+        this.slug = slug;
+        this.createTime = createTime;
+        this.updateTime = updateTime;
+        this.userId = userId;
+        this.content = content;
+        this.contentType = contentType;
+        this.readingTime = readingTime;
+    }
+
     private String title;
     private String creator;
     private String cover;

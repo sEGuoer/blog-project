@@ -10,13 +10,13 @@ import java.util.Map;
 
 public interface UserMapper extends UserDao {
     @Override
-    List<Blog> selectBlogByPage(int offset, int rowCount);
+    List<Blog> selectBlogByPage(@Param("offset") int offset, @Param("rowCount") int rowCount);
 
     @Override
     List<User> selectUsers();
 
     @Override
-    int changeBlogByID(String id, String content);
+    int changeBlogByID(@Param("id") String id, @Param("content") String content);
 
     @Override
     int addNewBlog(Blog blog);
@@ -34,7 +34,7 @@ public interface UserMapper extends UserDao {
     List<Blog> selectBlogs();
 
     @Override
-    int changeUsersByID(String id, String newName);
+    int changeUsersByID(@Param("id") String id, @Param("account") String account);
 
     @Override
     int addNewUser(User user);

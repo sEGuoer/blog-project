@@ -26,7 +26,7 @@
     </delete>
     <update id="changeUsersByID">
         update user
-        set email = #{email}
+        set account = #{account}
         where id = #{id}
     </update>
     <update id="changeBlogByID">
