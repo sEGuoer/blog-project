@@ -6,7 +6,7 @@
     <artifactId>blog-project</artifactId>
     <version>1.0.0</version>
 
-    <packaging>jar</packaging>
+    <packaging>war</packaging>
     <name>blog-project Maven Webapp</name>
 
     <url>http://maven.apache.org</url>
@@ -57,6 +57,12 @@
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
             <version>8.0.28</version>
+        </dependency>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>RELEASE</version>
+            <scope>compile</scope>
         </dependency>
     </dependencies>
     <build>
