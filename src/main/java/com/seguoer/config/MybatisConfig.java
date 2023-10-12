@@ -14,14 +14,14 @@ public class MybatisConfig {
     public SqlSessionFactory sqlSessionFactory(DataSource dataSource) throws Exception {
         SqlSessionFactoryBean sqlSessionFactoryBean = new SqlSessionFactoryBean();
         sqlSessionFactoryBean.setDataSource(dataSource);
-        sqlSessionFactoryBean.setTypeAliasesPackage("com.sEGuo.mybatis.po");
+        sqlSessionFactoryBean.setTypeAliasesPackage("com.seguoer.po");
         return sqlSessionFactoryBean.getObject();
     }
 
     @Bean
     public MapperScannerConfigurer mapperScannerConfigurer() {
         MapperScannerConfigurer mapperScannerConfigurer = new MapperScannerConfigurer();
-        mapperScannerConfigurer.setBasePackage("com.sEGuo.mybatis.mapper");
+        mapperScannerConfigurer.setBasePackage("com.seguoer.mapper");
         return mapperScannerConfigurer;
     }
 }
