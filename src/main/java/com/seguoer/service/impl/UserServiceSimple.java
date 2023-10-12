@@ -4,6 +4,9 @@ import com.seguoer.mapper.UserMapper;
 import com.seguoer.po.Blog;
 import com.seguoer.po.User;
 import com.seguoer.service.UserService;
+import org.commonmark.node.Node;
+import org.commonmark.parser.Parser;
+import org.commonmark.renderer.html.HtmlRenderer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -85,6 +88,17 @@ public class UserServiceSimple implements UserService {
 
     @Override
     public String selectBlogContent(String title) {
-        return userMapper.selectBlogContent(title);
+        String mySQL = userMapper.selectBlogContent(title);
+        if (mySQL != null){
+            System.out.println(mySQL);
+            Parser parser = Parser.builder().build();
+            Node document = parser.parse(mySQL);
+            HtmlRenderer renderer = HtmlRenderer.builder().build();
+            String Content = renderer.render(document);
+            System.out.println(Content);
+            return Content;
+        }else {
+            return "Please input correctly title";
+        }
     }
 }
