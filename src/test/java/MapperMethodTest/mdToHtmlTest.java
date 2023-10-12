@@ -20,4 +20,15 @@ public class mdToHtmlTest {
         String mySQL = userMapper.selectBlogContent("MySQL");
         System.out.println(mySQL);
     }
+    @Test
+    @DisplayName("代码MD转html")
+    void MDtoHtml(){
+        String mySQL = userMapper.selectBlogContent("MySQL");
+        System.out.println(mySQL);
+        Parser parser = Parser.builder().build();
+        Node document = parser.parse(mySQL);
+        HtmlRenderer renderer = HtmlRenderer.builder().build();
+        String Content = renderer.render(document);
+        System.out.println(Content);
+    }
 }
