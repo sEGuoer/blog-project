@@ -64,7 +64,7 @@ public class UserMapperTest {
     @DisplayName("登陆测试(登陆一个人)")
     @Test
     void userLogin(){
-        List<User> userList = userMapper.selectUsersByName("admin@1");
+        List<User> userList = userMapper.selectUsersByName("%@%");
         System.out.println(userList.size());
     }
 }
