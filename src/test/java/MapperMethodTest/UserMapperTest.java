@@ -3,12 +3,14 @@ package MapperMethodTest;
 import com.seguoer.config.AppConfig;
 import com.seguoer.mapper.UserMapper;
 import com.seguoer.po.Blog;
+import com.seguoer.po.User;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 
 import java.util.Date;
+import java.util.List;
 
 @SpringJUnitConfig(AppConfig.class)
 public class UserMapperTest {
@@ -50,5 +52,19 @@ public class UserMapperTest {
     @Test
     void deleteBlogByID(){
         System.out.println(userMapper.deleteBlogByID("7"));
+    }
+    @DisplayName("删除已有博客")
+    @Test
+    void selectBlogs(){
+        List<Blog> blogList = userMapper.selectBlogs("%");
+        for (Blog blog : blogList) {
+            System.out.println(blog.toString());
+        }
+    }
+    @DisplayName("登陆测试(登陆一个人)")
+    @Test
+    void userLogin(){
+        List<User> userList = userMapper.selectUsersByName("admin@1");
+        System.out.println(userList.size());
     }
 }
