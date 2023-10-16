@@ -11,6 +11,7 @@
 <head>
     <title>YourMessage</title>
     <link rel="stylesheet" href="./vite/build/assets/app.css">
+    <link rel="stylesheet" href="vendor/editor.md/css/editormd.min.css" />
     <style>
         html {
             height: 100%;
@@ -121,6 +122,15 @@
                 </div>
             </div>
         </div>
+        <div class="blog-edit-container">
+            <!-- 标题编辑区 -->
+            <div class="title">
+                <input type="text" placeholder="在这里写下文章标题" id="title">
+                <button id="submit">发布文章</button>
+            </div>
+            <!-- 创建编辑器标签 -->
+            <div id="editor"></div>
+        </div>
     </main>
     <footer>
         <nav class="navbar navbar-expand-lg bg-body-tertiary">
@@ -144,6 +154,23 @@
             }
         }
     }
+</script>
+<script src="js/jquery-latest.min.js"></script>
+<script src="vendor/editor.md/lib/marked.min.js"></script>
+<script src="vendor/editor.md/lib/prettify.min.js"></script>
+<script src="vendor/editor.md/editormd.js"></script>
+<script type="text/javascript">
+    // 初始化编辑器
+    let editor = editormd("editor", {
+        // 这里的尺寸必须在这里设置. 设置样式会被 editormd 自动覆盖掉.
+        width: "100%",
+        // 高度 100% 意思是和父元素一样高. 要在父元素的基础上去掉标题编辑区的高度
+        height: "calc(100% - 50px)",
+        // 编辑器中的初始内容
+        markdown: "# 在这里写下一篇博客",
+        // 指定 editor.md 依赖的插件路径
+        path: "vendor/editor.md/lib/"
+    });
 </script>
 <script src=vite/build/assets/app.js></script>
 </body>
