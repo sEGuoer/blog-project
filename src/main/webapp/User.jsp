@@ -13,6 +13,45 @@
     <link rel="stylesheet" href="./vite/build/assets/app.css">
     <link rel="stylesheet" href="vendor/editor.md/css/editormd.min.css" />
     <style>
+        .blog-edit-container {
+            width: 1000px;
+            height: 500px;
+            margin: 0 auto;
+        }
+        .blog-edit-container .title {
+            width: 100%;
+            height: 50px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        #title {
+            height: 40px;
+            width: 890px;
+            text-indent: 10px;
+            border-radius: 10px;
+            outline: none;
+            border: none;
+            background-color:rgba(255, 255, 255, 0.8);
+        }
+        #submit {
+            height: 40px;
+            width: 100px;
+            color: white;
+            background-color: orange;
+            border: none;
+            outline: none;
+            border-radius: 10px;
+        }
+        #editor {
+            border-radius: 10px;
+            /* 针对 #editor 用 bgc 属性无法设置半透明了. 里面包含的内容带了背景色 */
+            /* background-color:rgba(255, 255, 255, 0.8); */
+            /* 可以使用 opacity 属性实现 */
+            opacity: 80%;
+        }
+    </style>
+    <style>
         html {
             height: 100%;
             width: 100%;
@@ -95,34 +134,37 @@
             </div>
         </nav>
     </header>
-    <main class="container row mx-md-5">
-        <div class="col-12 col-md-5">
-            <div class="card text-center" style="width: 18rem;">
-                <img src="img/Cache_247709949bd616a9..jpg" class="card-img-top" alt="...">
-                <div class="card-body">
-                    <h5 class="card-title">用户名</h5>
-                    <p class="card-text">个人简介</p>
-                    <form action="fileUpload" method="post" enctype="multipart/form-data">
-                        <input name="file" type="file">
-                        <input class="btn btn-primary" type="submit">
-                    </form>
+    <main class="container">
+        <div id="userInfo" class="row mx-md-5">
+            <div class="col-12 col-md-5">
+                <div class="card text-center" style="width: 18rem;">
+                    <img src="img/Cache_247709949bd616a9..jpg" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title">用户名</h5>
+                        <p class="card-text">个人简介</p>
+                        <form action="fileUpload" method="post" enctype="multipart/form-data">
+                            <input name="file" type="file">
+                            <input class="btn btn-primary" type="submit">
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-7 col-12">
+                <div class="card m-auto">
+                    <div class="card-header">
+                        个人资料
+                    </div>
+                    <div class="card-body">
+                        <% User user = (User) request.getAttribute("user"); %>
+                        <div><%="用户名&ensp;:"%><span class="ps-5" ><%=user.getAccount()%></span></div>
+                        <div><%="邮&ensp;&ensp;箱&ensp;:"%><span class="ps-5" id="userEmail"><%=user.getEmail()%></span></div>
+                        <div><%="密&ensp;&ensp;码&ensp;:"%><span class="ps-5">******</span></div>
+                    </div>
+                    <div><button class="btn btn-primary" id="addBlogButton">发布一篇博客</button></div>
                 </div>
             </div>
         </div>
-        <div class="col-md-7 col-12">
-            <div class="card m-auto">
-                <div class="card-header">
-                    个人资料
-                </div>
-                <div class="card-body">
-                    <% User user = (User) request.getAttribute("user"); %>
-                    <div><%="用户名&ensp;:"%><span class="ps-5" ><%=user.getAccount()%></span></div>
-                    <div><%="邮&ensp;&ensp;箱&ensp;:"%><span class="ps-5" id="userEmail"><%=user.getEmail()%></span></div>
-                    <div><%="密&ensp;&ensp;码&ensp;:"%><span class="ps-5">******</span></div>
-                </div>
-            </div>
-        </div>
-        <div class="blog-edit-container">
+        <div class="blog-edit-container" id="addBlog" style="display:none;">
             <!-- 标题编辑区 -->
             <div class="title">
                 <input type="text" placeholder="在这里写下文章标题" id="title">
@@ -142,6 +184,10 @@
         </nav>
     </footer>
 </div>
+<script src="js/jquery-latest.min.js"></script>
+<script src="vendor/editor.md/lib/marked.min.js"></script>
+<script src="vendor/editor.md/lib/prettify.min.js"></script>
+<script src="vendor/editor.md/editormd.js"></script>
 <script>
     function logoff() {
         var xhr = new XMLHttpRequest();
@@ -154,11 +200,11 @@
             }
         }
     }
+    $("#addBlogButton").click(function () {
+        $("#addBlog").prop("style","") ;
+        $("#userInfo").prop("style","display:none") ;
+    })
 </script>
-<script src="js/jquery-latest.min.js"></script>
-<script src="vendor/editor.md/lib/marked.min.js"></script>
-<script src="vendor/editor.md/lib/prettify.min.js"></script>
-<script src="vendor/editor.md/editormd.js"></script>
 <script type="text/javascript">
     // 初始化编辑器
     let editor = editormd("editor", {

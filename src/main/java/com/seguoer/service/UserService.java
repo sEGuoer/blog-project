@@ -10,7 +10,7 @@ import java.util.Map;
 public interface UserService {
     List<Blog> selectAllBlog();
     List<Blog> selectBlogByPage(@Param("offset") int offset, @Param("rowCount") int rowCount);
-    List<User> selectUsersByName(String name);
+    List<User> selectUsersByEmail(String email);
     List<Blog> selectBlogs(String id);
     List<User> selectAllUser();
     List<User> selectUsers();
@@ -18,6 +18,7 @@ public interface UserService {
     int changeBlogByID(String id,String content);
     int addNewUser(User user);
     int addNewBlog(Blog blog);
+    int addNewBlog(String email,String content,String title);
     int deleteUsersByID(String id);
     int deleteBlogByID(String id);
     int updateBlog(Map map);

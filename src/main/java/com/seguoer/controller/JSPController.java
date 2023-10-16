@@ -5,11 +5,11 @@ import com.seguoer.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 public class JSPController {
@@ -33,4 +33,19 @@ public class JSPController {
         model.addAttribute("Content",content);
         return "forward:" + "../blogs/blog.jsp";
     }
+
+    @PostMapping("/addBlog")
+    @ResponseBody
+    String addBlog(String email,String content, String title) {
+        if ((email != null || !email.equals("")) && content != null && title != null){
+            int result = userService.addNewBlog(email, content,title);
+            return "博客添加成功";
+        }
+        return "博客添加失败请返回重试";
+    }
+   /* @PostMapping("/blogs{page}/{title}")
+    @ResponseBody
+    String updateBlog(@PathVariable String title,@PathVariable String page) {
+        return "forward:" + "../blogs/blog.jsp";
+    }*/
 }

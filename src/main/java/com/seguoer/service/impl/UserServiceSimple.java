@@ -12,6 +12,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.ui.Model;
 
 import java.io.IOException;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -34,8 +35,8 @@ public class UserServiceSimple implements UserService {
     }
 
     @Override
-    public List<User> selectUsersByName(String name) {
-        return userMapper.selectUsersByName(name);
+    public List<User> selectUsersByEmail(String email) {
+        return userMapper.selectUsersByName(email);
     }
 
     @Override
@@ -71,6 +72,19 @@ public class UserServiceSimple implements UserService {
     @Override
     public int addNewBlog(Blog blog) {
         return userMapper.addNewBlog(blog);
+    }
+
+    @Override
+    public int addNewBlog(String email, String content ,String title) {
+        List<User> userList = selectUsersByEmail(email);
+        if (userList != null){
+            User user = userList.get(0);
+            Blog blog = new Blog(title,user.getUsername(),"xx","xx",new Date(),new Date(),user.getId(),content,"md",0);
+            userMapper.addNewBlog(blog);
+            return 1;
+        }else {
+            return 0;
+        }
     }
 
     @Override

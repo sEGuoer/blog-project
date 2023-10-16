@@ -156,25 +156,25 @@
                                     <span>#</span>
                                 </div>
                             </th>
-                            <th scope="col">Email</th>
-                            <th scope="col">Password</th>
-                            <th scope="col">Account</th>
+                            <th scope="col">Title</th>
+                            <th scope="col">Creator</th>
+                            <th scope="col">ContentType</th>
                             <th scope="col">
                                 <button class="btn btn-danger text-center" id="deleteManyUser"
                                         onclick="deleteManyUser()">批量删除
                                 </button>
                             </th>
                         </tr>
-                        <c:forEach items="${list}" var="user" begin="0" end="8" varStatus="i">
-                            <tr id="${user.getEmail()}">
+                        <c:forEach items="${list}" var="blog" begin="0" end="8" varStatus="i">
+                            <tr id="${blog.getTitle()}">
                                 <th scope="col">
                                     <div class="form-check">
                                         </label><span class="number"> ${i.count}</span>
                                     </div>
                                 </th>
-                                <td>${user.getEmail()}</td>
-                                <td>${user.getPassword()}</td>
-                                <td>${user.getAccount()} </td>
+                                <td>${blog.getTitle()}</td>
+                                <td>${blog.getCreator()}</td>
+                                <td>${blog.getContentType()} </td>
                                 <td>
                                     <div class="btn-group me-2" role="group" aria-label="First group">
                                         <button id="deleteUser" type="button" class="btn btn-info"
