@@ -1,15 +1,16 @@
-<%@ page import="com.seguoer.po.Blog" %>
-<%@ page import="java.util.List" %>
-<%@ page import="java.util.ArrayList" %>
-<%@ page import="com.seguoer.service.UserService" %>
-<%@ page import="org.springframework.beans.factory.annotation.Autowired" %>
+<%@ page import="com.seguoer.po.User" %><%--
+  Created by IntelliJ IDEA.
+  User: Administrator
+  Date: 2023/8/23
+  Time: 9:39
+  To change this template use File | Settings | File Templates.
+--%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page isELIgnored="false" %>
-<%@ taglib prefix="c" uri="jakarta.tags.core" %>
 <html>
 <head>
-    <title>article_list</title>
-    <link rel="stylesheet" href="vite/build/assets/app.css">
+    <title>YourMessage</title>
+    <link rel="stylesheet" href="./vite/build/assets/app.css">
     <style>
         html {
             height: 100%;
@@ -38,9 +39,10 @@
         }
     </style>
 </head>
+
 <body>
 <div class="h-100 d-flex flex-column m-auto justify-content-between">
-    <header class="mb-5">
+    <header>
         <nav class="navbar navbar-expand-lg bg-body-tertiary">
             <div class="container-fluid">
                 <h1 class="d-flex align-items-center ">
@@ -61,17 +63,17 @@
                                 <path d="M11 8a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
                                 <path d="M14 14V4.5L9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2zM9.5 3A1.5 1.5 0 0 0 11 4.5h2v9.255S12 12 8 12s-5 1.755-5 1.755V2a1 1 0 0 1 1-1h5.5v2z"/>
                             </svg>
-                            简历</a>
+                            动态</a>
                         <a class="nav-link" href="#boke">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                                  class="bi bi-book-half" viewBox="0 0 16 16">
                                 <path d="M8.5 2.687c.654-.689 1.782-.886 3.112-.752 1.234.124 2.503.523 3.388.893v9.923c-.918-.35-2.107-.692-3.287-.81-1.094-.111-2.278-.039-3.213.492V2.687zM8 1.783C7.015.936 5.587.81 4.287.94c-1.514.153-3.042.672-3.994 1.105A.5.5 0 0 0 0 2.5v11a.5.5 0 0 0 .707.455c.882-.4 2.303-.881 3.68-1.02 1.409-.142 2.59.087 3.223.877a.5.5 0 0 0 .78 0c.633-.79 1.814-1.019 3.222-.877 1.378.139 2.8.62 3.681 1.02A.5.5 0 0 0 16 13.5v-11a.5.5 0 0 0-.293-.455c-.952-.433-2.48-.952-3.994-1.105C10.413.809 8.985.936 8 1.783z"/>
                             </svg>
-                            博客</a>
+                            消息</a>
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
                                aria-expanded="false">
-                                学习仓库
+                                我的信息
                             </a>
                             <ul class="dropdown-menu">
                                 <li><a class="dropdown-item" href="#javack">Java仓库</a></li>
@@ -82,61 +84,44 @@
                                 <li><a class="dropdown-item" href="#myWebsiteck">主页仓库</a></li>
                             </ul>
                         </li>
-                        <a href="./index_login.html" id="hoverfloat">
+                        <div onclick=logoff() id="hoverfloat">
                             <button class="btn btn-danger">
-                                <span class="text-center">登录</span>
+                                <span class="text-center">注销</span>
                             </button>
-                        </a>
+                        </div>
                     </div>
                 </div>
             </div>
         </nav>
     </header>
-
-    <div class="container" id="main_content">
-        <div class="mx-lg-auto">
-            <div class="row">
-                <% List<Blog> blogList = (List<Blog>) request.getAttribute("Blogs"); %>
-                <%for (Blog blog : blogList) { %>
-                <div class="col-md-6">
-                    <article class="border-bottom h-100 pb-5 pt-5 ">
-                        <div class="row justify-content-between">
-                            <div class="col-7">
-                                <h2 class="mb-2 h5"><a class="text-info" href=<%= "blogs/"+blog.getTitle()%>>
-                                    <%= blog.getTitle()%>
-                                </a></h2>
-                                <div class="small text-muted">
-                                    <a href="#"
-                                       class="link-secondary link-offset-2 link-underline-opacity-0 link-underline-opacity-100-hover">
-                                        <%=blog.getCreator()%>
-                                    </a>
-                                    <span> - </span>
-                                    <span><%=blog.getUpdateTime()%></span>
-                                </div>
-                            </div>
-                            <div class="col-5">
-                                <div class="d-flex">
-                                    <a href=<%= "blogs/"+blog.getTitle()%> class="w-100">
-                                        <img class="img-fluid shadow-sm rounded ratio-16x9" src="./img/MySQL.png">
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    </article>
+    <main class="container row mx-md-5">
+        <div class="col-12 col-md-5">
+            <div class="card text-center" style="width: 18rem;">
+                <img src="img/Cache_247709949bd616a9..jpg" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title">用户名</h5>
+                    <p class="card-text">个人简介</p>
+                    <form action="fileUpload" method="post" enctype="multipart/form-data">
+                        <input name="file" type="file">
+                        <input class="btn btn-primary" type="submit">
+                    </form>
                 </div>
-                <% } %>
             </div>
-
         </div>
-        <div class="card-footer clearfix text-center">
-            <ul class="pagination pagination-sm m-0 justify-content-center">
-                <li class="page-item">当前<span id="nowPage">${page}</span>页</li>
-                <li class="page-item" onclick=previousPage()><span class="page-link">«</span></li>
-                <li class="page-item" onclick=homePage()><span class="page-link">1</span></li>
-                <li class="page-item" onclick=nextPage()><span class="page-link">»</span></li>
-            </ul>
+        <div class="col-md-7 col-12">
+            <div class="card m-auto">
+                <div class="card-header">
+                    个人资料
+                </div>
+                <div class="card-body">
+                    <% User user = (User) request.getAttribute("user"); %>
+                    <div><%="用户名&ensp;:"%><span class="ps-5" ><%=user.getAccount()%></span></div>
+                    <div><%="邮&ensp;&ensp;箱&ensp;:"%><span class="ps-5" id="userEmail"><%=user.getEmail()%></span></div>
+                    <div><%="密&ensp;&ensp;码&ensp;:"%><span class="ps-5">******</span></div>
+                </div>
+            </div>
         </div>
-    </div>
+    </main>
     <footer>
         <nav class="navbar navbar-expand-lg bg-body-tertiary">
             <div class="container-md justify-content-center justify-content-md-start align-items-center">
@@ -148,62 +133,18 @@
     </footer>
 </div>
 <script>
-    var select = document.querySelector('select')
-    select.onchange = function () {
-        window.location = this.value;
-    }
-    function homePage() {
-        console.log(3)
-        let page = "1";
-        let currentURL = window.location.href
-        let currentUrl = currentURL.split("blogs");
-        if (currentUrl.length == 1) {
-            let goatURL
-            goatURL = currentURL +  page
-            window.location.href = goatURL
-        } else {
-            let goatURL
-            goatURL = currentUrl[0] + "blogs" + page
-            window.location.href = goatURL
+    function logoff() {
+        var xhr = new XMLHttpRequest();
+        xhr.open('POST', 'clearSession', true);
+        xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded")
+        xhr.send("email="+ document.getElementById("userEmail").innerText)
+        xhr.onreadystatechange = function () {
+            if ((xhr.status == 200 || xhr.status == 304) && xhr.readyState == 4){
+                window.location.href = "./"
+            }
         }
-    }
-    function nextPage() {
-        console.log(3)
-        let page = parseInt(document.getElementById("nowPage").innerText) ;
-            page += 1;
-        let currentURL = window.location.href
-        let currentUrl = currentURL.split("blogs");
-        if (currentUrl.length == 1){
-            let goatURL
-            goatURL = currentURL + page
-            window.location.href = goatURL
-        }else {
-            let goatURL
-            goatURL = currentUrl[0] + "blogs" + page
-            window.location.href = goatURL
-        }
-    }
-    function previousPage() {
-        console.log(3)
-        let page = parseInt(document.getElementById("nowPage").innerText) ;
-        if (page == 1){
-        }else{
-            page -= 1
-        }
-        let currentURL = window.location.href
-        let currentUrl = currentURL.split("blogs");
-        if (currentUrl.length == 1){
-            let goatURL
-            goatURL = currentURL + page
-            window.location.href = goatURL
-        }else {
-            let goatURL
-            goatURL = currentUrl[0] + "blogs" + page
-            window.location.href = goatURL
-        }
-
     }
 </script>
-<script src="vite/build/assets/app.js"></script>
+<script src=vite/build/assets/app.js></script>
 </body>
 </html>

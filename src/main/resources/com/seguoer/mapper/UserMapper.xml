@@ -7,7 +7,7 @@
     <select id="selectUsersByName" resultMap="RuseltMape">
         select *
         from user
-        where name LIKE #{name}
+        where email LIKE #{email}
     </select>
     <select id="selectAllUser" resultMap="RuseltMape">
         select *

@@ -11,7 +11,7 @@ public interface UserDao {
     List<Blog> selectAllBlog();
     List<Blog> selectBlogByPage(@Param("offset") int offset, @Param("rowCount") int rowCount);
     List<User> selectUsersByName(String name);
-    List<Blog> selectBlogs();
+    List<Blog> selectBlogs(String id);
     List<User> selectAllUser();
     List<User> selectUsers();
     int changeUsersByID(String id,String account);

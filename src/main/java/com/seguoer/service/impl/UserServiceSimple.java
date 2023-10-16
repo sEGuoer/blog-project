@@ -9,10 +9,12 @@ import org.commonmark.parser.Parser;
 import org.commonmark.renderer.html.HtmlRenderer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.ui.Model;
 
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 @Component
 public class UserServiceSimple implements UserService {
@@ -28,7 +30,7 @@ public class UserServiceSimple implements UserService {
 
     @Override
     public List<Blog> selectBlogByPage(int offset, int rowCount) {
-        return userMapper.selectBlogByPage(offset-1,rowCount);
+        return userMapper.selectBlogByPage(offset - 1, rowCount);
     }
 
     @Override
@@ -37,8 +39,8 @@ public class UserServiceSimple implements UserService {
     }
 
     @Override
-    public List<Blog> selectBlogs() {
-        return userMapper.selectBlogs();
+    public List<Blog> selectBlogs(String id) {
+        return userMapper.selectBlogs(id);
     }
 
     @Override
@@ -53,12 +55,12 @@ public class UserServiceSimple implements UserService {
 
     @Override
     public int changeUsersByID(String id, String account) {
-        return userMapper.changeUsersByID(id,account);
+        return userMapper.changeUsersByID(id, account);
     }
 
     @Override
     public int changeBlogByID(String id, String content) {
-        return userMapper.changeBlogByID(id,content);
+        return userMapper.changeBlogByID(id, content);
     }
 
     @Override
@@ -89,7 +91,7 @@ public class UserServiceSimple implements UserService {
     @Override
     public String selectBlogContent(String title) {
         String mySQL = userMapper.selectBlogContent(title);
-        if (mySQL != null){
+        if (mySQL != null) {
             System.out.println(mySQL);
             Parser parser = Parser.builder().build();
             Node document = parser.parse(mySQL);
@@ -97,8 +99,32 @@ public class UserServiceSimple implements UserService {
             String Content = renderer.render(document);
             System.out.println(Content);
             return Content;
-        }else {
+        } else {
             return "Please input correctly title";
         }
     }
-}
+
+    @Override
+    public String userLogin(String email, String password) {
+        List<User> userList = userMapper.selectUsersByName(email);
+        if (userList.size() == 1) {
+            User user = userList.get(0);
+            String sqlPassword = user.getPassword();
+            if (sqlPassword.equals(password)) {
+                if (user.getUsername().equals("person")) {
+                    return "用户登录";
+                } else if (user.getUsername().equals("admin")) {
+                    return "管理员登陆";
+                } else {
+                    return "?";
+                }
+            }else {
+                    return "密码错误";
+                }
+            } else if (userList.size() == 0) {
+                return "没有找到该用户";
+            } else {
+                return "请输入正确的账号";
+            }
+        }
+    }

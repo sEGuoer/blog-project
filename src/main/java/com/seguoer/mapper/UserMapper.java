@@ -25,13 +25,13 @@ public interface UserMapper extends UserDao {
     int updateBlog(Map map);
 
     @Override
-    List<User> selectUsersByName(@Param("name") String name);
+    List<User> selectUsersByName(@Param("email") String email);
 
     @Override
     List<Blog> selectAllBlog();
 
     @Override
-    List<Blog> selectBlogs();
+    List<Blog> selectBlogs(String id);
 
     @Override
     int changeUsersByID(@Param("id") String id, @Param("account") String account);

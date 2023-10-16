@@ -13,7 +13,7 @@ public class BlogController {
     UserService userService;
 
     @GetMapping
-    R index(@RequestParam(defaultValue = "0")int page, @RequestParam(defaultValue = "0")int perpage) {
+    R index(@RequestParam(defaultValue = "1")int page, @RequestParam(defaultValue = "2")int perpage) {
         if (page == 0 && perpage == 0){
             return R.ok(userService.selectAllBlog());
         }else {
@@ -25,6 +25,7 @@ public class BlogController {
     R store(Blog blog) {
         return R.ok(userService.addNewBlog(blog));
     }
+
 
     @DeleteMapping("/{id}")
     R destory(@PathVariable String id) {
